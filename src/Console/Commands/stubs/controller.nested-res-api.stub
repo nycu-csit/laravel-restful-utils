@@ -1,0 +1,69 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedParentModel }};
+use {{ namespacedRequests }}
+
+/**
+ * @property {{ namespacedModel }} $model
+ * @property {{ namespacedParentModel }} $parentModel
+ */
+class {{ class }} extends ApiNestedResourceController
+{
+    public function index(Request $request, {{ parentModel }} ${{ parentModelVariable }})
+    {
+        return parent::indexAction($request, ${{ parentModelVariable }});
+    }
+
+    public function store({{ storeRequest }} $request, {{ parentModel }} ${{ parentModelVariable }})
+    {
+        return parent::storeAction($request, ${{ parentModelVariable }});
+    }
+
+    public function show(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::showAction($request, ${{ modelVariable }});
+    }
+
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::updateAction($request, ${{ modelVariable }});
+    }
+
+    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::destroyAction($request, ${{ modelVariable }});
+    }
+
+    protected function getModelClass(): string
+    {
+        return {{ model }}::class;
+    }
+
+    public function buildIndexQuery(): object
+    {
+        // TODO: Implement buildIndexQuery() method.
+    }
+
+    protected function setupQueryBuilder(): void
+    {
+        // TODO: Implement setupQueryBuilder() method.
+        // Example:
+        //     $this->query = $this->parentModel->resources();
+        // Replace the resource to your nested resource relationship
+    }
+
+    protected function saveCreatedModel(): void
+    {
+        // TODO: Implement saveCreatedModel() method.
+        // Example for one-to-many relationship:
+        //     $this->parentModel->resources()->save($this->model);
+        // Example for many-to-many relationship:
+        //     $this->model->save();
+        //     $this->parentModel->resources()->attach($this->model->getKey());
+        // Replace the resource to your nested resource relationship
+    }
+}

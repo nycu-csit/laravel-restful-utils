@@ -1,0 +1,12 @@
+# Lock file is unnecessary for a package
+composer.lock
+
+# Composer
+vendor/
+
+# IDE and editors
+.idea/
+.code/
+
+# PHPUnit
+.phpunit.result.cache

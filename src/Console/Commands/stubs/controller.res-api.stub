@@ -1,0 +1,48 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ namespacedModel }};
+use {{ rootNamespace }}Http\Controllers\Controller;
+use {{ namespacedRequests }}
+
+/**
+ * @property {{ namespacedModel }} $model
+ */
+class {{ class }} extends ApiResourceController
+{
+    public function index(Request $request)
+    {
+        return parent::indexAction($request);
+    }
+
+    public function store({{ storeRequest }} $request)
+    {
+        return parent::storeAction($request);
+    }
+
+    public function show(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::showAction($request, ${{ modelVariable }});
+    }
+
+    public function update({{ updateRequest }} $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::updateAction($request, ${{ modelVariable }});
+    }
+
+    public function destroy(Request $request, {{ model }} ${{ modelVariable }})
+    {
+        return parent::destroyAction($request, ${{ modelVariable }});
+    }
+
+    protected function getModelClass(): string
+    {
+        return {{ model }}::class;
+    }
+
+    public function buildIndexQuery(): object
+    {
+        return $this->query;
+    }
+}
