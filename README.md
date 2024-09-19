@@ -81,6 +81,7 @@ There are some properties can help you reduce passing arguments:
 * `$this->model` the model from [route model binding](https://laravel.com/docs/master/routing#route-model-binding)
 * `$this->result` the response or resource will be returned
 * `$this->parentModel` the parent model from route model binding, only for nested controllers
+
 These properties are defined in [Context](src/Controller/Concerns/Context.php) trait.
 
 **Be careful!**
@@ -135,6 +136,74 @@ extend and override these methods to build something great!
 Nested resource:
 * [`IndexAction`](src/Controller/Concerns/Nested/IndexAction.php)
 * [`StoreAction`](src/Controller/Concerns/Nested/StoreAction.php)
+
+#### API Resource
+
+For action method `index()` returns a collection of resources, action methods `show()`, `store()`, `update()` returns a single resource.
+You may need a transformation layer that sits between your Eloquent models and the JSON responses that are actually returned to your application's users.
+So, these methods may return [API Resources](https://laravel.com/docs/11.x/eloquent-resources#main-content) instead of the model.
+
+Class [HasResourceActions](src/Controller/HasResourceActions.php) and [HasNestedResourceActions](src/Controller/HasNestedResourceActions.php) provides
+function `constructJsonResource()` and `constructResourceCollection()` to construct resource instance that just wraps the model. 
+
+To use your own resource class, you may use the `make:resource` artisan command:
+
+```shell
+php artisan make:resource PhotoResource
+```
+
+and override these methods in your controller:
+
+```php
+use App\Http\Resources\PhotoResource;
+
+class PhotoController extends ApiResourceController
+{
+    // ...
+    
+    public function constructJsonResource($resource): JsonResource
+    {
+        return new PhotoResource($resource);
+    }
+
+    public function constructResourceCollection($resource): ResourceCollection
+    {
+        return new PhotoResource::collection($resource);
+    }
+}
+```
+
+In most case, simply create a `PhotoResource` and use its `::collection()` method to construct a resource collection.
+
+In addition to generating resources that transform individual models, you may generate resources that are responsible for transforming collections of models.
+
+To use your own collection class, you may use the artisan command to generate a collection:
+
+```shell
+php artisan make:resource User --collection
+```
+
+and override these methods in your controller:
+
+```php
+use App\Http\Resources\PhotoResource;
+use App\Http\Resources\PhotoCollection;
+
+class PhotoController extends ApiResourceController
+{
+    // ...
+    
+    public function constructJsonResource($resource): JsonResource
+    {
+        return new PhotoResource($resource);
+    }
+
+    public function constructResourceCollection($resource): ResourceCollection
+    {
+        return new PhotoCollection($resource);
+    }
+}
+```
 
 ### Pagination
 
