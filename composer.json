@@ -1,6 +1,8 @@
 {
     "name": "nycu-csit/laravel-restful-utils",
     "description": "Restful API utilities for Laravel projects",
+    "keywords": ["Laravel"],
+    "homepage": "https://github.com/nycu-csit/laravel-restful-utils",
     "type": "library",
     "license": "MIT",
     "autoload": {
