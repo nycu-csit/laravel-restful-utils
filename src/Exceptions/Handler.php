@@ -5,6 +5,7 @@ namespace NycuCsit\LaravelRestfulUtils\Exceptions;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Route;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -15,6 +16,23 @@ use Throwable;
  */
 class Handler extends ExceptionHandler
 {
+    /**
+     * Determine if the exception handler response should be JSON.
+     *
+     * Typically, the API endpoint should respond JSON.
+     * Override shouldReturnJson() to prevent responding a webpage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function shouldReturnJson($request, Throwable $e)
+    {
+        $route = $request->route();
+        $middlewareGroup = $route instanceof Route ? $route->gatherMiddleware() : [];
+
+        return parent::shouldReturnJson($request, $e) || in_array('api', $middlewareGroup);
+    }
+
     protected function convertExceptionToArray(Throwable $e): array
     {
         return [
