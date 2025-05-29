@@ -17,11 +17,13 @@ jobs:
         uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@master
+        uses: php-actions/phpunit@v4
+        env:
+          XDEBUG_MODE: coverage
         with:
-          bootstrap: vendor/autoload.php
+          php_extensions: xdebug
           configuration: phpunit.xml
-          args: --coverage-text
+          coverage_text: true
 
       - name: PHP Code Sniffer
         uses: php-actions/phpcs@v1
