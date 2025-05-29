@@ -28,6 +28,7 @@ class Handler extends ExceptionHandler
     protected function shouldReturnJson($request, Throwable $e)
     {
         $route = $request->route();
+        // @phpstan-ignore instanceof.alwaysTrue
         $middlewareGroup = $route instanceof Route ? $route->gatherMiddleware() : [];
 
         return parent::shouldReturnJson($request, $e) || in_array('api', $middlewareGroup);

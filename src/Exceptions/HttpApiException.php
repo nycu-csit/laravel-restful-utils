@@ -55,6 +55,7 @@ class HttpApiException extends RuntimeException
         } elseif (
             is_object($code) &&
             is_a($code, '\BackedEnum') &&
+            // @phpstan-ignore function.alreadyNarrowedType
             property_exists($code, 'value') &&
             is_string($code->value)
         ) {
