@@ -4,6 +4,7 @@ namespace Tests\Exceptions;
 
 use InvalidArgumentException;
 use NycuCsit\LaravelRestfulUtils\Exceptions\HttpApiException;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class HttpApiExceptionTest extends TestCase
@@ -18,6 +19,7 @@ class HttpApiExceptionTest extends TestCase
     /**
      * @requires PHP 8.1
      */
+    #[Test]
     public function test_constructor_invalid_int_backed_enum_code()
     {
         $this->expectException(InvalidArgumentException::class);
@@ -37,6 +39,7 @@ class HttpApiExceptionTest extends TestCase
     /**
      * @requires PHP 8.1
      */
+    #[Test]
     public function test_constructor_enum_code()
     {
         $e = new HttpApiException(200, \Tests\TestEnum::Test1);
