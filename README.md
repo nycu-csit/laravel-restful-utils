@@ -2,7 +2,7 @@
 
 This package provides utilities for building a restful API for Laravel projects.
 
-This package requires PHP >= 8.2, and supports Laravel 9~12.
+This package requires PHP >= 8.0, and supports Laravel 9~13.
 
 ## Setup
 
